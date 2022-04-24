@@ -1,4 +1,4 @@
-\section{Red a analizar}
+\section{Red a analizar: estadísticos y análisis básico}
 
 De cara a realizar esta práctica se va a analizar la red de seguidores de la Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación (ETSIIT), de la Universidad de Granada.
 
@@ -75,4 +75,48 @@ Distancia media d componente gigante                       & 2,598965954        
 \caption{Medidas estadísticas de la red de seguidores de la ETSIIT}
 \end{table}
 
+Con estos datos podemos observar que tenemos una red con bastantes nodos pero muy poco densa globalmente (tenemos una densidad de grafo muy baja), también podemos ver que se trata de una red bastante conexa, en la que el diametro máximo es 7 y la distancia media es muy baja, ya que no llega a tres nodos.
+
+Aunque la densidad de la red es baja, con el coeficiente medio de clustering podemos ver que la densidad local es bastante alta, es decir, hay una alta proporción de vecinos de cada nodo conectados.
+
+Con respecto al número de componentes conexas, ya hemos visto en figuras anteriores como tenemos bastantes nodos sueltos y una componente gigante que abarca casi toda la red, cosa que confirmamos ahora al ver que todas las conexiones de la red están en la componente gigante de la red.
+
 \subsection{Gráficos sobre las medidas de la red}
+
+De cara a calcular las medidas de la sección anterior también se han obtenido diferentes gráficos sobre las medidas de la red.
+
+Comenzando por los gráficos de distribución de grado, que al ser una red dirigida tenemos gráficos tanto de grado de entrada como grado de salida, así como el grado total:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.5]{degree-distribution.png}
+  \caption{Informe sobre la distribución de grados de la red de seguidores de la ETSIIT.}
+  \label{fig:degree-distribution}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.5]{indegree-distribution.png}
+  \caption{Informe sobre la distribución de grados de entrada de la red de seguidores de la ETSIIT.}
+  \label{fig:indegree-distribution}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.5]{outdegree-distribution.png}
+  \caption{Informe sobre la distribución de grados de salida de la red de seguidores de la ETSIIT.}
+  \label{fig:outdegree-distribution}
+\end{figure}
+
+Con estos gráficos podemos ver que se trata de una red libre de escala, en la que la mayoría de los nodos apenas tienen enlaces, mientras que la mayoría de enlaces los tienen muy pocos nodos, llegando a tener un nodo con más de dos mil enlaces. Más adelante estudiaremos cuales son estos nodos con más conexiones y veremos si tienen sentido en la red sobre la que estamos trabajando.
+
+También hemos obtenido (usando LibreOffice Calc ya que Gephi por error mostraba el gráfico vacío) la distribución del valor de coeficiente de clustering de los nodos:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.6]{coeficiente_clustering.png}
+  \caption{Informe sobre el coeficiente de clustering de los nodos de la red de seguidores de la ETSIIT.}
+  \label{fig:outdegree-coeficiente_clustering}
+\end{figure}
+
+Vemos que hay muchos nodos (160 aproximadamente) con un coeficiente de clustering con valor 0, la densidad local de dichos nodos es nula, es decir, no tienen vecinos conectados. Por otro lado vemos que también destacan los valores 1 y 0.5, vemos como hay alrededor de 82 nodos con la mitad de sus vecinos conectados y encontramos unos 45 nodos en los que todos los vecinos están conectados. Estos valores nos dan a entender que la red es localmente densa, por lo que encontraremos hubs dentro de la red.
