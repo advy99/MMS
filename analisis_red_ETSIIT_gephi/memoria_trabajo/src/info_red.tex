@@ -27,6 +27,52 @@ Esta visualización es la generada directamente por Gephi, por lo que podemos ha
 
 \subsection{Previsualización de la componente gigante de la red}
 
+Con Gephi podemos observar el número de componentes conexos de la red, que en este caso son 65. Como podemos ver en el informe generado por Gephi, 64 de estas son nodos sin conexiones y la componente gigante contiene la mayor parte de los nodos y todas las conexiones:
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width = \textwidth]{componentes_conexos.png}
+  \caption{Informe sobre componentes conexos de Gephi sobre la red de seguidores de la ETSIIT.}
+  \label{fig:componentes_conexos}
+\end{figure}
+
+Vamos a visualizar la red únicamente con la componente gigante, que como veremos, no aparecerán los nodos en los extremos que podíamos ver en la red completa.
+
+\newpage
+\begin{figure}[H]
+	\centering
+	\includepdf[frame=true, scale=0.9, offset=75 -50]{pdf_incrustados/componente_gigante.pdf}
+	\caption{Componente gigante de seguidores de la cuenta ETSIIT}
+\end{figure}
+\newpage
+
 \subsection{Medidas de la red}
+
+Como se pedía en el guión de prácticas, también se ha obtenido diversas medidas estadísticas sobre la red:
+
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|r|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Medida}}                      & \multicolumn{1}{c|}{\textbf{Valor}} \\ \hline
+Número de nodos N                                          & 1916                                \\ \hline
+Número de enlaces L                                        & 47334                               \\ \hline
+Número máximo de enlaces Lmax                              & 3.669.140                           \\ \hline
+Densidad del grafo L/Lmax                                  & 0,013                               \\ \hline
+Grado medio \textless{}k\textgreater{}                     & 24,705                              \\ \hline
+Diámetro dmax                                              & 7                                   \\ \hline
+Distancia media d                                          & 2,598965954                         \\ \hline
+Coeficiente medio de clustering \textless{}C\textgreater{} & 0,407                               \\ \hline
+Número de componentes conexas                              & 65                                  \\ \hline
+Número de nodos componente gigante (y \%)                  & 1852 (0,966)                        \\ \hline
+Número de aristas componente gigante (y \%)                & 47334 (1)                           \\ \hline
+Diámetro dmax componente gigante                           & 7                                   \\ \hline
+Distancia media d componente gigante                       & 2,598965954                         \\ \hline
+\end{tabular}%
+\caption{Medidas estadísticas de la red de seguidores de la ETSIIT}
+\end{table}
 
 \subsection{Gráficos sobre las medidas de la red}
