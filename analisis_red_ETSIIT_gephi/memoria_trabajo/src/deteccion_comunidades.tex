@@ -211,3 +211,19 @@ Tras utilizar el método de Leiden se han obtenido los siguientes resultados:
 \textit{2,5}                              & \textit{0,1357}                       & \textit{42}                                         \\ \hline
 \end{tabular}
 \end{table}
+
+Como podemos ver, son resultados similares a los obtenidos con el método de Lovaina, sin embargo el primer detalle que puede llamar la atención es que el valor de la resolución funciona a la inversa que en el método de Leiden, es decir, a valores mayores de 1, el número de comunidades obtenidas aumenta, y no disminuye. Esto se debe a detalles de la implementación del plugin de Gephi.
+
+Con respecto a las comunidades obtenidas, son muy similares a las obtenidas por Lovaina, con la diferencia de algunos nodos que se mueven a comunidades parecidas (como comenté en el apartado anterior al analizar las cinco comunidades obtenidas con resolución 1). Por este motivo, para no volver a repetir y extender esta memoria con las mismas conclusiones obtenidas en el apartado anterior, simplemente se va a visualizar las cinco particiones obtenidas con resolución 1:
+
+\newpage
+\begin{figure}[H]
+	\centering
+	\includepdf[frame=true, scale=0.9, offset=75 -50]{pdf_incrustados/comunidades_leiden_5.pdf}
+	\caption{Red completa de seguidores de la cuenta ETSIIT, coloreada según comunidad obtenida con el método de Leiden y el tamaño de los nodos en función del grado.}
+\end{figure}
+\vspace{18cm}
+Vemos como en este caso el método de Leiden se ha comportado mejor al separar la comunidad de profesores y asociaciones de informática (comunidades 1 y 4 usando el método de Lovaina), separando mejor las cuentas personales de profesores de la ETSIIT con las cuentas de las asociaciones, en lugar de a los profesores involucrados en estas asociaciones unirlas a la comunidad de asociaciones.
+\newpage
+
+Como vemos, esta diferencia al asignar nodos a las comunidades puede ser o no relevante para extraer información de la red, dependiendo del enfoque que utilicemos podemos decir que ambas asignaciones son correctas.
