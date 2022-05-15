@@ -1,0 +1,93 @@
+\section{Datos a analizar}
+
+De cara a realizar esta práctica se utilizarán datos extraídos de la red social Twitter. En concreto, se utilizarán los tweets de la cuenta \href{https://twitter.com/CosmereQuotes}{CosmereQuotes}, una cuenta que publica citas de los libros del Cosmere, universo de fantasía donde se ambientan los libros del autor Brandon Sanderson.
+
+He decidido utilizar estos tweets como documentos debido a que he leído los libros y por lo tanto tengo información sobre los documentos, siendo esto una ventaja a la hora de analizar los resultados y saber si estos son coherentes.
+
+\section{Lectura de los datos}
+
+Para realizar la lectura de datos utilizaremos el plugin KNIME Twitter Connectors. Este plugin nos permite utilizar los nodos Twitter API Connector y Twitter Search.
+
+Con el nodo Twitter API Connector introduciremos los datos necesarios para realizar la conexión a la API de Twitter, y una vez estemos conectados, pasamos al nodo Twitter Search.
+
+El nodo Twitter Search nos permite definir la búsqueda que realizaremos. En este caso no buscaremos palabras concretas, utilizaremos el parámetro \texttt{from} para definir de que cuenta se van a obtener los tweets. También podemos establecer el número de tweets que vamos a obtener (aunque como veremos, debido a las limitaciones de la API de Twitter obtendremos un número limitado de tweets), así como la información a almacenar de cada tweet.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale = 0.6]{busqueda_TW.png}
+	\caption{Configuración del nodo Twitter Search.}
+	\label{fig:busqueda_TW}
+\end{figure}
+
+Tras ejecutar este nodo, obtenemos los siguientes datos:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale = 0.6]{entrada_datos.png}
+	\caption{Datos obtenidos por el nodo Twitter Search.}
+	\label{fig:entrada_datos}
+\end{figure}
+
+
+Como podemos ver, los tweets leídos son casillas de texto, y no documentos, por este motivo utilizaremos un nodo String to Document para convertir la columna Tweet en un documento.
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = \textwidth]{entrada_datos_documentos.png}
+	\caption{Datos obtenidos por el nodo String to Document.}
+	\label{fig:entrada_datos_documentos}
+\end{figure}
+
+
+Con esto, ya tenemos preparados los documentos con los que trabajaremos.
+
+\section{Enriquecimiento de los documentos}
+
+Una vez tenemos los documentos preparados podemos pasar el enriquecimiento. En este caso es muy simple, solamente se usará un nodo POS Tagger para asignar a cada termino de un documento una etiqueta que marcará los términos similares de cada documento.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale = 0.6]{POS_tagger.png}
+	\caption{Configuracion del nodo POS Tagger.}
+	\label{fig:POStagger}
+\end{figure}
+
+Como los documentos utilizados son texto en inglés, se usará como tokenizador OpenNLP English WordTokenizer.
+
+
+\section{Preprocesamiento}
+
+Con respecto al preprocesamiento se han utilizado los siguientes nodos:
+
+\begin{itemize}
+	\item Punctuation Erasure: Eliminar todos los caracteres de puntuación de los documentos, como los puntos, las comas, comillas, etc.
+	\item Diacritic Remover: Elimina los signos diacríticos de los documentos de entrada. Este nodo es importante en nuestro caso ya que al tratarse de documentos relacionados con literatura de fantasía existen términos que utilizan estos signos para marcar la pronunciación.
+	\item N Chars Filter: Elimina todos los términos con una longitud menor a la dada, en este caso dos caracteres. Nos permite eliminar términos conectores que no aportan información.
+	\item Tag Filter: Permite seleccionar términos por categorías. En nuestro caso escogeremos solo los términos que sean nombres.
+	\item Porter Stemmer: Permite obtener la raíz de los términos utilizando el algoritmo de Porter. De esta forma, los términos son reducidos a su raíz.
+\end{itemize}
+
+Tras aplicar todos estos pasos a los documentos, obtenemos el siguiente resultado:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = \textwidth]{documentos_preprocesados.png}
+	\caption{Documentos tras aplicar el preprocesado.}
+	\label{fig:documentos_preprocesados}
+\end{figure}
+
+
+\section{Técnica de minería}
+
+\section{Visualización}
+
+
+\section{Workflow final}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = \textwidth]{workflow_knime.png}
+	\caption{Workflow final de KNIME.}
+	\label{fig:workflow_knime}
+\end{figure}
