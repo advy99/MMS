@@ -40,6 +40,8 @@ Como podemos ver, los tweets leídos son casillas de texto, y no documentos, por
 \end{figure}
 
 
+Un detalle importante es que debido a las limitaciones de la API de Twitter contamos con tan solo los 125 tweets más recientes, y no todos los tweets de la cuenta, por lo que el número de documentos es 125.
+
 Con esto, ya tenemos preparados los documentos con los que trabajaremos.
 
 \section{Enriquecimiento de los documentos}
@@ -80,10 +82,49 @@ Tras aplicar todos estos pasos a los documentos, obtenemos el siguiente resultad
 
 \section{Técnica de minería}
 
+Para la técnica de minería se utilizará un clustering jerárquico. Para poder usar esta técnica primero tenemos que realizar la extracción de términos y transformar los documentos a una representación en la que se pueda calcular la distancia entre dos términos.
+
+En concreto se ha usado el nodo Keygraph Keyword Extractor, con el que de cada documento extraeremos los términos considerados más importantes. Tras esto se ha usado el nodo Document Vector para transformar cada documento en un vector numérico usando como columnas los términos, una representación que si podemos usar en la técnica de minería.
+
+Una vez estas transformaciones se ha usado el nodo Hierarchical Clustering para aplicar el clustering jerárquico, obteniendo los siguientes resultados:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = \textwidth]{tabla_clustering.png}
+	\caption{Tabla de documentos tras aplicar el clustering.}
+	\label{fig:tabla_clustering}
+\end{figure}
+
+También obtenemos el siguiente dendograma:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = \textwidth]{dendograma.png}
+	\caption{Dendograma obtenido con el clustering.}
+	\label{fig:dendograma}
+\end{figure}
+
+
 \section{Visualización}
 
+Para la visualización utilizaré el nodo Tag Cloud, ya que se trata de la opción más visual y directa para ver la información extraída.
+
+Primero, el resultado de Porter Stemmer se pasará por un nodo Bag of Words Creator, para representar los documentos como bolsas de palabras. Tras esto, se calculará la frecuencia relativa y absoluta de cada término, así como la inversa de su frecuencia, lo que usaremos para conocer las palabras de mayor relevancia para la nube de palabras. Antes de usar la nube también se aplicará un filtrado por frecuencia, para eliminar los términos que no sean relevantes. Con esto ya si aplicamos la nube de palabras, con la que obtenemos el siguiente resultado:
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale = 0.8]{nube_palabras.png}
+	\caption{Nube de palabras.}
+	\label{fig:nube_palabras}
+\end{figure}
+
+Teniendo información sobre los documentos podemos ver que esta nube de palabras tiene sentido, apareciendo con bastante importancia personajes importantes de las dos principales sagas, El Archivo de las Tormentas (Vyre, Tien y Set) y Nacidos de la Bruma (Wax y Harmoni), así como términos que tienen cierta relevancia en el contexto de los libros.
 
 \section{Workflow final}
+
+
+El flujo final realizado a lo largo de la práctica es el siguiente:
 
 \begin{figure}[H]
 	\centering
@@ -91,3 +132,6 @@ Tras aplicar todos estos pasos a los documentos, obtenemos el siguiente resultad
 	\caption{Workflow final de KNIME.}
 	\label{fig:workflow_knime}
 \end{figure}
+
+
+Como podemos ver, toda la parte de lectura y preprocesamiento es común, y simplemente difiere el flujo al aplicar tareas concretas, por lo que si quisiéramos seguir trabajando con estos datos podríamos aprovechar gran parte del flujo.
